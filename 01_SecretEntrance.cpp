@@ -1,7 +1,6 @@
 #include<iostream>
+#include<fstream>
 using namespace std;
-
-const int n = 4068;
 
 int convert_to_int(string s)
 {
@@ -20,14 +19,16 @@ int convert_to_int(string s)
 
 int main()
 {
+	ifstream data;
+    string s;
+	data.open("input_01.txt");
     int dial = 50;
     int direction;
     int counter = 0;
-    string s;
     
-    for (int i=0; i<n; i++)
+    while(!data.eof())
     {
-        cin>>s;
+        data>>s;
         if (s[0]=='L')
         {
             direction = -1;
@@ -52,17 +53,18 @@ int main()
 			if (dial==100) 
 			{
 				dial = 0;	
-		}
-        if (dial==0)
-        {
-            counter++;
-        }
-        if(dial==100)
-        {
-        	dial = 0;
+			}
+	        if (dial==0)
+	        {
+	            counter++;
+	        }
+	        if(dial==100)
+	        {
+	        	dial = 0;
+			}
 		}
     }
-    
+    data.close();
     cout<<counter<<endl;
     
     return 0;
