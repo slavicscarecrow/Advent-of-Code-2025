@@ -24,7 +24,6 @@ void fill_array(string s)
     unsigned long long int x = 0;
     unsigned long long int y = 0;
     string s1 = "";
-    cout<<"Converting "<<s<<" to x and y ints "<<endl;
     for (int i=0; i<s.size(); i++)
     {
 
@@ -43,8 +42,6 @@ void fill_array(string s)
             y = convert_to_int(s1);
         }
     }
-	
-    cout<<x<<", "<<y<<endl;
     freshness_ranges.push_back(make_pair(x,y));
 
 }
@@ -61,21 +58,13 @@ void merge_ranges()
 			i--;
 		}
 	}
+	unsigned long long int counter=0;
+	for (int i=0; i<freshness_ranges.size(); i++)
+	{
+		counter += (freshness_ranges[i].second-freshness_ranges[i].first)+1;
+	}
 	
-	for (int i=0; i<freshness_ranges.size(); i++)
-	{
-		cout<<freshness_ranges[i].first<<" "<<freshness_ranges[i].second<<endl;
-	}
-}
-
-bool check_freshness(string s)
-{
-	unsigned long long int x = convert_to_int(s);
-	for (int i=0; i<freshness_ranges.size(); i++)
-	{
-		if (x>=freshness_ranges[i].first && x<=freshness_ranges[i].second) return true;
-	}
-	return false;
+	cout<<counter<<endl;
 }
 
 int main()
@@ -84,7 +73,6 @@ int main()
     data.open("input_05.txt");
     string s;
     bool first_input = true;
-    long long int counter = 0;
     while(!data.eof())
     {
         getline(data,s);
@@ -92,20 +80,15 @@ int main()
         {
             first_input = false;
             merge_ranges();
+            break;
         }
         if(first_input)
         {
             fill_array(s);
         }
-        else
-        {
-            if(check_freshness(s)) counter++;
-        }
-        
     }
     data.close();
     
-    cout<<counter<<endl;
     
     return 0;
 }
